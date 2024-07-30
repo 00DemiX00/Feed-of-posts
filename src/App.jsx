@@ -5,6 +5,7 @@ import ClassCounter from './Components/ClassCounter';
 import PostItem from './Components/PostItem';
 import PostList from './Components/PostList';
 import MyButton from './Components/UI/Button/MyButton';
+import MyInput from './Components/UI/Input/MyInput';
 
 
 
@@ -19,8 +20,8 @@ function App() {
   return (
   <div className='App'>
     <form>
-      <input type='text' placeholder='Название поста'></input>
-      <input type='text' placeholder='Название поста'></input>
+      <MyInput type='text' placeholder='Название поста'></MyInput>
+      <MyInput type='text' placeholder='Название поста'></MyInput>
       <MyButton>Создать пост</MyButton>
     </form>
      <PostList posts={posts} title="Список постов 1"></PostList>

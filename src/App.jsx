@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './Styles/App.css';
 import Counter from './Components/Counter';
 import ClassCounter from './Components/ClassCounter';
@@ -20,16 +20,15 @@ function App() {
   ])
   const [selectedSort, setSelectedSort] = useState();
   const [searchQuery, setSearchQuery] = useState();
-
-  function getSortedPosts() {
+  
+  const sortedPosts = useMemo(() => {
     console.log('Отработала функция getSortedPosts')
     if(selectedSort) {
       return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
     }
     return posts;
-  }
-  
-  const sortedPosts = getSortedPosts()
+
+  }, [selectedSort, posts])
   
   const createPost = (newPost) => {
     setPosts ([...posts, newPost])

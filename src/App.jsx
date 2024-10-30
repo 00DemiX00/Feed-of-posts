@@ -18,9 +18,9 @@ function App() {
     {id: 2, title: 'Название поста 2', body: 'Описание поста 2'},
     {id: 3, title: 'Название поста 3', body: 'Описание поста 3'},
   ])
-  const [selectedSort, setSelectedSort] = useState();
-  const [searchQuery, setSearchQuery] = useState();
-  
+  const [selectedSort, setSelectedSort] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
   const sortedPosts = useMemo(() => {
     console.log('Отработала функция getSortedPosts')
     if(selectedSort) {
@@ -30,6 +30,10 @@ function App() {
 
   }, [selectedSort, posts])
   
+  const sortedAndSearchPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+  }, [searchQuery, sortedPosts])
+
   const createPost = (newPost) => {
     setPosts ([...posts, newPost])
   };
@@ -61,8 +65,8 @@ const sortPosts = (sort) => {
         ]}
         ></MySelect>
       </div>
-      {posts.length !==0
-      ?<PostList remove={removePost} posts={sortedPosts} title="Список постов 1"></PostList>
+      {sortedAndSearchPosts.length
+      ?<PostList remove={removePost} posts={sortedAndSearchPosts} title="Список постов 1"></PostList>
       :<h1 style={{textAlign: 'center'}}>Посты не найдены.</h1>
       }
 

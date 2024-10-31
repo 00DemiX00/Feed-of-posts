@@ -9,6 +9,7 @@ import MyInput from './Components/UI/Input/MyInput';
 import PostForm from './Components/PostForm';
 import MySelect from './Components/UI/Select/MySelect';
 import PostFilter from './Components/PostFilter';
+import MyModal from './Components/UI/Modal/MyModal';
 
 
 
@@ -45,16 +46,15 @@ function App() {
 
   return (
   <div className='App'>
+      <MyModal>cxcxc</MyModal>
       <PostForm create={createPost}></PostForm>
       <hr style={{margin:'15px 0' }}></hr>
       <PostFilter filter={filter} setFilter={setFilter}></PostFilter>
-      {sortedAndSearchPosts.length
-      ?<PostList remove={removePost} posts={sortedAndSearchPosts} title="Список постов 1"></PostList>
-      :<h1 style={{textAlign: 'center'}}>Посты не найдены.</h1>
-      }
-
+      <PostList remove={removePost} posts={sortedAndSearchPosts} title="Список постов 1"></PostList>
   </div>
   )
 }
 
 export default App
+
+//PostForm - форма для создания, PostFilter - форма для фильтрации, PostList - список постов

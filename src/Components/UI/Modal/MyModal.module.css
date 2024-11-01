@@ -1,16 +1,16 @@
 .MyModal {
 position: fixed;
-top: 0;
-bottom: 0;
-right: 0;
-left: 0;
+top: 50;
+bottom: 50;
+right: 50;
+left: 50;
 display: none;
-background-color: white;
+background: rgba(0, 0, 0, 0.5);
 };
 
 .myModalContent{
     padding: 25px;
-    background: white;
+    background: blueviolet;
     border-radius: 16px;
     min-width: 250px;
     background-color: aqua
@@ -20,5 +20,4 @@ background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aqua
 };

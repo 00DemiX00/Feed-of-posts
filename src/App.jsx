@@ -22,6 +22,7 @@ function App() {
   ])
   
   const [filter, setFilter] = useState({sort: '', query: ''})
+  const [modal, setModal] = useState(false)
 
   const sortedPosts = useMemo(() => {
     console.log('Отработала функция getSortedPosts')
@@ -46,7 +47,8 @@ function App() {
 
   return (
   <div className='App'>
-      <MyModal visible={true}>
+      <MyButton onClick={() => setModal(true)}>Новый пост</MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
       <PostForm create={createPost}></PostForm>
       </MyModal>
       <hr style={{margin:'15px 0' }}></hr>

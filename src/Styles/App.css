@@ -86,17 +86,17 @@ button:focus-visible {
 }
 
 .post-enter {
-  opacity: 0;
+  transform: translateX(-1500px);
 }
 
 .post-enter-active {
-  transform: translateX(350px);
-  transition: all 500ms ease-in;
+  transform: translateX(0px);
+  transition: all 90ms ease-in;
 }
 .post-exit {
   opacity: 1;
 }
 .post-exit-active {
-  transform: translateX(-350px);
-  transition: all 500ms ease-in;
+  transform: translateX(-1500px);
+  transition: all 90ms ease-in;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './Styles/App.css';
 import Counter from './Components/Counter';
 import ClassCounter from './Components/ClassCounter';
@@ -27,6 +27,10 @@ function App() {
   const [modal, setModal] = useState(false);
   const sortedAndSearchPosts = usePosts(posts, filter.post, filter.query);
 
+useEffect(() => {
+fetchPosts()
+}, [])
+
   const createPost = (newPost) => {
     setPosts ([...posts, newPost])
     setModal (false)
@@ -43,7 +47,6 @@ function App() {
 
   return (
   <div className='App'>
-    <button onClick={fetchPosts}>GET POSTS</button>
       <MyButton onClick={() => setModal(true)}>Новый пост</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
       <PostForm create={createPost}></PostForm>

@@ -11,7 +11,7 @@ import MySelect from './Components/UI/Select/MySelect';
 import PostFilter from './Components/PostFilter';
 import MyModal from './Components/UI/Modal/MyModal';
 import { usePosts } from './hooks/usePosts';
-import axios from 'axios';
+import PostService from './API/PostService';
 
 
 
@@ -37,8 +37,8 @@ fetchPosts()
   };
 
   async function fetchPosts() {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    setPosts(response.data)
+    const posts = await PostService.getAll();
+    setPosts(posts)
   };
 
   const removePost = (post) => {

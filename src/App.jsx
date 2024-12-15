@@ -37,7 +37,7 @@ fetchPosts()
     setisPostsLoading(true);
     setTimeout(async() => {    const posts = await PostService.getAll();
       setPosts(posts)
-      setisPostsLoading(false);}, 100000)
+      setisPostsLoading(false);})
 
   };
 

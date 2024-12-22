@@ -13,6 +13,8 @@ import MyModal from './Components/UI/Modal/MyModal';
 import { usePosts } from './hooks/usePosts';
 import PostService from './API/PostService';
 import Loader from './Components/UI/Loader/Loader';
+import { useFetching } from './hooks/useFetching';
+import { getPageCount, getPagesArray } from './utils/pages';
 
 
 
@@ -21,9 +23,21 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const sortedAndSearchPosts = usePosts(posts, filter.post, filter.query);
-  const [isPostsLoading, setisPostsLoading] = useState(false);
+  let pagesArray = getPagesArray(totalPages);
 
+
+  const [fetchPosts, isPostsLoading, postError] = useFetching( async () => {
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data)
+    const totalCount = response.headers['x-total-count']
+    setTotalPages(getPageCount(totalCount, limit));
+  })
+
+  
 useEffect(() => {
 fetchPosts()
 }, [])
@@ -31,14 +45,6 @@ fetchPosts()
   const createPost = (newPost) => {
     setPosts ([...posts, newPost])
     setModal (false)
-  };
-
-  async function fetchPosts() {
-    setisPostsLoading(true);
-    setTimeout(async() => {    const posts = await PostService.getAll();
-      setPosts(posts)
-      setisPostsLoading(false);})
-
   };
 
   const removePost = (post) => {
@@ -53,10 +59,23 @@ fetchPosts()
       </MyModal>
       <hr style={{margin:'15px 0' }}></hr>
       <PostFilter filter={filter} setFilter={setFilter}></PostFilter>
+      {postError &&
+        <h1>Произошла ошибка ${postError}</h1>
+      }
       {isPostsLoading
       ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader></Loader></div>
       : <PostList remove={removePost} posts={sortedAndSearchPosts} title="Список постов"></PostList>
       }
+      <div className='page__wrapper'>{
+      pagesArray.map(p => 
+        <MyButton 
+          onClick = {() => setPage(p)} 
+          key={p} 
+          className = {page === p ? 'page page__current' : 'page'}>
+            {p}
+        </MyButton>
+      )}</div>
+      
   </div>
   )
 }

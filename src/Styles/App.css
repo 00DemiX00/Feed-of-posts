@@ -106,11 +106,3 @@ button:focus-visible {
   display: flex;
   justify-content: center;
 }
-
-.page {
-  cursor: pointer;
-}
-
-.page__current {
-  font-weight: bold;
-}

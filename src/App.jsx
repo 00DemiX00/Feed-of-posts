@@ -15,6 +15,7 @@ import PostService from './API/PostService';
 import Loader from './Components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
 import { getPageCount, getPagesArray } from './utils/pages';
+import Pagination from './Components/UI/Pagination';
 
 
 
@@ -27,7 +28,6 @@ function App() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const sortedAndSearchPosts = usePosts(posts, filter.post, filter.query);
-  let pagesArray = getPagesArray(totalPages);
 
 
   const [fetchPosts, isPostsLoading, postError] = useFetching( async () => {
@@ -40,7 +40,7 @@ function App() {
   
 useEffect(() => {
 fetchPosts()
-}, [])
+}, [page])
 
   const createPost = (newPost) => {
     setPosts ([...posts, newPost])
@@ -50,6 +50,10 @@ fetchPosts()
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
   };
+
+const changePage = (page) => {
+  setPage(page)
+}
 
   return (
   <div className='App'>
@@ -66,16 +70,11 @@ fetchPosts()
       ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader></Loader></div>
       : <PostList remove={removePost} posts={sortedAndSearchPosts} title="Список постов"></PostList>
       }
-      <div className='page__wrapper'>{
-      pagesArray.map(p => 
-        <MyButton 
-          onClick = {() => setPage(p)} 
-          key={p} 
-          className = {page === p ? 'page page__current' : 'page'}>
-            {p}
-        </MyButton>
-      )}</div>
-      
+      <Pagination
+        page={page}
+        changePage={changePage}
+        totalPages={totalPages}
+        ></Pagination>
   </div>
   )
 }

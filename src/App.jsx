@@ -1,20 +1,15 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Styles/App.css';
-import Counter from './Components/Counter';
-import ClassCounter from './Components/ClassCounter';
-import PostItem from './Components/PostItem';
 import PostList from './Components/PostList';
 import MyButton from './Components/UI/Button/MyButton';
-import MyInput from './Components/UI/Input/MyInput';
 import PostForm from './Components/PostForm';
-import MySelect from './Components/UI/Select/MySelect';
 import PostFilter from './Components/PostFilter';
 import MyModal from './Components/UI/Modal/MyModal';
 import { usePosts } from './hooks/usePosts';
 import PostService from './API/PostService';
 import Loader from './Components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
-import { getPageCount, getPagesArray } from './utils/pages';
+import { getPageCount } from './utils/pages';
 import Pagination from './Components/UI/Pagination';
 
 
@@ -63,6 +58,8 @@ const changePage = (page) => {
       </MyModal>
       <hr style={{margin:'15px 0' }}></hr>
       <PostFilter filter={filter} setFilter={setFilter}></PostFilter>
+    
+
       {postError &&
         <h1>Произошла ошибка ${postError}</h1>
       }

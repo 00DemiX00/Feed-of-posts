@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, StrictMode } from 'react';
 import './Styles/App.css';
 import PostList from './Components/PostList';
 import MyButton from './Components/UI/Button/MyButton';
@@ -9,7 +9,7 @@ import { usePosts } from './hooks/usePosts';
 import PostService from './API/PostService';
 import Loader from './Components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
-import { getPageCount } from './utils/pages';
+import { getPageCount, getPagesArray } from './utils/pages';
 import Pagination from './Components/UI/Pagination';
 
 
@@ -31,6 +31,8 @@ function App() {
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit));
   })
+
+    
 
   
 useEffect(() => {
